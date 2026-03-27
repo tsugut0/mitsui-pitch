@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美容室向け AI秘書 導入提案 × ミツイ様</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+<style>
+  :root {
+    --dark:  #121826;
+    --navy:  #1a3460;
+    --blue:  #1a6ad6;
+    --lblue: #4a9fe0;
+    --cyan:  #3dbcd8;
+    --white: #ffffff;
+    --lgray: #f2f5fa;
+    --mgray: #7a8fa8;
+    --dgray: #3a4555;
+    --green: #1a9660;
+    --org:   #d47518;
+    --red:   #bc3026;
+    --gold:  #bc9416;
+  }
+
+  .reveal { font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif; }
+  .reveal .slides section { padding: 0; text-align: left; }
+
+  /* ========== 共通パーツ ========== */
+  .header {
+    background: var(--dark);
+    padding: 18px 40px 14px 50px;
+    border-left: 8px solid var(--blue);
+    margin-bottom: 0;
+  }
+  .header h2 {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: var(--white);
+    margin: 0 0 4px 0;
+    line-height: 1.3;
+  }
+  .header .sub {
+    font-size: 0.65em;
+    color: var(--cyan);
+    font-style: italic;
+    margin: 0;
+  }
+
+  .content { padding: 18px 40px 14px 50px; }
+
+  .footer-bar {
+    background: var(--navy);
+    color: var(--white);
+    font-size: 0.58em;
+    font-weight: 600;
+    text-align: center;
+    padding: 8px 20px;
+    margin-top: 10px;
+  }
+  .footer-bar .arrow { color: var(--cyan); margin-right: 6px; }
+
+  .page-num {
+    position: absolute;
+    bottom: 10px;
+    right: 30px;
+    font-size: 0.5em;
+    color: var(--mgray);
+  }
+
+  /* ========== カード ========== */
+  .card {
+    background: white;
+    border-left: 5px solid var(--blue);
+    padding: 10px 14px;
+    margin-bottom: 8px;
+  }
+  .card h4 { margin: 0 0 4px 0; font-size: 0.72em; }
+  .card p  { margin: 0; font-size: 0.6em; color: var(--dgray); line-height: 1.4; }
+
+  .card.blue  { border-color: var(--blue); }
+  .card.blue  h4 { color: var(--blue); }
+  .card.green { border-color: var(--green); }
+  .card.green h4 { color: var(--green); }
+  .card.org   { border-color: var(--org); }
+  .card.org   h4 { color: var(--org); }
+  .card.red   { border-color: var(--red); }
+  .card.red   h4 { color: var(--red); }
+  .card.gold  { border-color: var(--gold); }
+  .card.gold  h4 { color: var(--gold); }
+
+  /* ========== グリッド ========== */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; }
+
+  /* ========== スライド1: タイトル ========== */
+  .slide-title {
+    background: var(--dark);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 60px;
+    border-left: 10px solid var(--blue);
+    position: relative;
+  }
+  .slide-title .badge {
+    background: var(--blue);
+    color: white;
+    font-size: 0.6em;
+    font-weight: 700;
+    display: inline-block;
+    padding: 5px 16px;
+    margin-bottom: 20px;
+  }
+  .slide-title h1 {
+    font-size: 2.0em;
+    font-weight: 900;
+    color: white;
+    margin: 0 0 8px 0;
+    line-height: 1.25;
+  }
+  .slide-title .sub-title {
+    font-size: 1.15em;
+    color: var(--lblue);
+    font-weight: 700;
+    margin-bottom: 30px;
+  }
+  .slide-title .divider {
+    width: 100%;
+    height: 2px;
+    background: var(--blue);
+    margin: 24px 0;
+  }
+  .slide-title .partner { font-size: 0.85em; color: var(--cyan); margin-bottom: 6px; }
+  .slide-title .presenter { font-size: 0.62em; color: var(--mgray); font-style: italic; }
+
+  /* ========== アジェンダ ========== */
+  .agenda-item {
+    background: white;
+    display: flex;
+    align-items: center;
+    padding: 8px 14px;
+    margin-bottom: 7px;
+  }
+  .agenda-num {
+    background: var(--blue);
+    color: white;
+    font-size: 0.75em;
+    font-weight: 700;
+    width: 38px;
+    min-width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 14px;
+  }
+  .agenda-title { font-size: 0.68em; font-weight: 600; color: var(--dark); margin: 0; }
+  .agenda-time  { font-size: 0.55em; color: var(--mgray); margin: 2px 0 0 0; font-style: italic; }
+
+  /* ========== フロー ========== */
+  .flow-wrap {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 10px 0;
+  }
+  .flow-step { flex: 1; }
+  .flow-head {
+    color: white;
+    font-size: 0.62em;
+    font-weight: 700;
+    text-align: center;
+    padding: 8px 6px;
+  }
+  .flow-body {
+    font-size: 0.55em;
+    text-align: center;
+    padding: 12px 8px;
+    line-height: 1.5;
+    color: var(--dgray);
+  }
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    color: var(--mgray);
+    padding: 0 4px;
+    margin-top: 16px;
+  }
+
+  /* ========== Phase バー ========== */
+  .phase-wrap {
+    display: flex;
+    gap: 4px;
+    margin: 10px 0;
+  }
+  .phase-box { flex: 1; overflow: hidden; }
+  .phase-head {
+    color: white;
+    font-size: 0.55em;
+    font-weight: 700;
+    text-align: center;
+    padding: 6px 4px;
+    background: rgba(0,0,0,0.3);
+    white-space: pre-line;
+  }
+  .phase-body {
+    color: white;
+    font-size: 0.52em;
+    text-align: center;
+    padding: 10px 6px;
+    line-height: 1.5;
+    min-height: 60px;
+    white-space: pre-line;
+  }
+
+  /* ========== AI秘書図 ========== */
+  .ai-layout {
+    display: grid;
+    grid-template-columns: 3fr 2fr 3fr;
+    gap: 8px;
+    align-items: start;
+  }
+  .ai-center {
+    background: var(--blue);
+    color: white;
+    text-align: center;
+    font-size: 0.7em;
+    font-weight: 700;
+    padding: 30px 10px;
+    border-radius: 4px;
+  }
+  .ai-item {
+    color: white;
+    font-size: 0.58em;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px 8px;
+    margin-bottom: 7px;
+    border-radius: 2px;
+    line-height: 1.45;
+  }
+
+  /* ========== 機能リスト ========== */
+  .feature-row {
+    background: white;
+    display: flex;
+    align-items: center;
+    padding: 7px 12px;
+    margin-bottom: 6px;
+  }
+  .feature-phase {
+    color: white;
+    font-size: 0.55em;
+    font-weight: 700;
+    padding: 3px 8px;
+    margin-right: 10px;
+    min-width: 28px;
+    text-align: center;
+  }
+  .feature-title { font-size: 0.68em; font-weight: 700; color: var(--dark); min-width: 170px; }
+  .feature-desc  { font-size: 0.55em; color: var(--mgray); flex: 1; padding: 0 10px; }
+  .feature-effect {
+    color: white;
+    font-size: 0.55em;
+    font-weight: 700;
+    padding: 4px 10px;
+    text-align: center;
+    min-width: 100px;
+  }
+
+  /* ========== ネクストステップ ========== */
+  .step-card {
+    flex: 1;
+  }
+  .step-head {
+    color: white;
+    font-size: 0.7em;
+    font-weight: 700;
+    text-align: center;
+    padding: 10px;
+    line-height: 1.4;
+  }
+  .step-body {
+    background: var(--navy);
+    color: white;
+    font-size: 0.62em;
+    text-align: center;
+    padding: 16px 10px;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- =================== S1: タイトル =================== -->
+<section>
+  <div class="slide-title">
+    <div class="badge">美容ディーラー向け 事業提案</div>
+    <h1>美容室の業務を、<br>AIが変える</h1>
+    <div class="sub-title">Mie-C × AI秘書 共同提案</div>
+    <div class="divider"></div>
+    <div class="partner">株式会社ミツイ 様  ×  THE Q AI</div>
+    <div class="presenter">プレゼンター：QQQ・つるクマ  /  2026年4月</div>
+    <div class="page-num">1 / 10</div>
+  </div>
+</section>
+
+<!-- =================== S2: アジェンダ =================== -->
+<section>
+  <div class="header">
+    <h2>本日のアジェンダ</h2>
+    <p class="sub">全体で約60分を予定しています</p>
+  </div>
+  <div class="content">
+    <div class="grid-2">
+      <div>
+        <div class="agenda-item">
+          <div class="agenda-num">01</div>
+          <div><p class="agenda-title">ミツイ様が目指すDXの現在地</p><p class="agenda-time">⏱ 5分</p></div>
+        </div>
+        <div class="agenda-item">
+          <div class="agenda-num">02</div>
+          <div><p class="agenda-title">AI秘書が解決する課題</p><p class="agenda-time">⏱ 10分</p></div>
+        </div>
+        <div class="agenda-item">
+          <div class="agenda-num">03</div>
+          <div><p class="agenda-title">具体的な機能と導入効果</p><p class="agenda-time">⏱ 10分</p></div>
+        </div>
+      </div>
+      <div>
+        <div class="agenda-item">
+          <div class="agenda-num">04</div>
+          <div><p class="agenda-title">Mie-C × AI秘書：連携の可能性</p><p class="agenda-time">⏱ 10分</p></div>
+        </div>
+        <div class="agenda-item">
+          <div class="agenda-num">05</div>
+          <div><p class="agenda-title">在庫管理 共同開発のご提案</p><p class="agenda-time">⏱ 10分</p></div>
+        </div>
+        <div class="agenda-item">
+          <div class="agenda-num">06</div>
+          <div><p class="agenda-title">ビジネスモデルと次のステップ</p><p class="agenda-time">⏱ 15分</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-num">2 / 10</div>
+</section>
+
+<!-- =================== S3: ミツイのDX現在地 =================== -->
+<section>
+  <div class="header">
+    <h2>01  ミツイ様が目指すDXの現在地</h2>
+    <p class="sub">「モノを売るのではなく、解決策を提供する」— Mie-Cで既に先行している</p>
+  </div>
+  <div class="content">
+    <div class="grid-4" style="margin-bottom:10px;">
+      <div>
+        <div class="flow-head" style="background:var(--blue);">CMS型HP提供</div>
+        <div class="flow-body" style="background:#eef4ff;">10種以上のテンプレから選べるサロン向けHP<br>（無償提供）</div>
+      </div>
+      <div>
+        <div class="flow-head" style="background:var(--green);">EC（Mie-C plus）</div>
+        <div class="flow-body" style="background:#eafaf2;">在庫なしでネット販売ができるサロン専売品EC</div>
+      </div>
+      <div>
+        <div class="flow-head" style="background:var(--org);">LINEビジネス</div>
+        <div class="flow-body" style="background:#fef6ea;">LINE顧客接点のデジタル化支援</div>
+      </div>
+      <div>
+        <div class="flow-head" style="background:var(--gold);">オンラインセミナー</div>
+        <div class="flow-body" style="background:#fdfaea;">格安セミナー受講、教育コンテンツ提供</div>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <span class="arrow">→</span>既に「解決策提供型DX」を推進中のミツイ様に、AI秘書は完全にマッチします。これはその自然な次のステップです。
+    </div>
+  </div>
+  <div class="page-num">3 / 10</div>
+</section>
+
+<!-- =================== S4: 課題 =================== -->
+<section>
+  <div class="header">
+    <h2>02  AI秘書が解決する課題</h2>
+    <p class="sub">施術以外の業務に追われるオーナーを、AIがサポートする</p>
+  </div>
+  <div class="content">
+    <div class="grid-2">
+      <div>
+        <div class="card red"><h4>📸 SNS投稿</h4><p>毎回手作業でキャプション・タグを作成。<br>週7投稿で数時間消費。</p></div>
+        <div class="card org"><h4>📦 在庫管理</h4><p>目視＋手書きで管理。<br>欠品・過剰在庫が頻繁に発生。</p></div>
+      </div>
+      <div>
+        <div class="card blue"><h4>💬 顧客対応</h4><p>FAQ・予約・口コミ返信を全部手動。<br>施術中でも対応が必要。</p></div>
+        <div class="card green"><h4>📊 売上分析</h4><p>POS集計は週末に手作業。<br>経営判断が常に後手になる。</p></div>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <span class="arrow">→</span>これらをAIが自動化することで、オーナーは「施術」と「顧客体験」に集中できる環境をつくる
+    </div>
+  </div>
+  <div class="page-num">4 / 10</div>
+</section>
+
+<!-- =================== S5: AI秘書とは =================== -->
+<section>
+  <div class="header">
+    <h2>03  AI秘書とは</h2>
+    <p class="sub">LINEで話しかけるだけ。それだけで業務が動く。</p>
+  </div>
+  <div class="content">
+    <div class="ai-layout">
+      <div>
+        <div class="ai-item" style="background:var(--green);">📸 写真を送る<br>→ キャプション+タグを自動生成</div>
+        <div class="ai-item" style="background:var(--org);">📦 在庫確認して<br>→ 欠品検知・ディーラーへ発注</div>
+        <div class="ai-item" style="background:var(--blue);">💬 FAQ返信して<br>→ AIが24時間自動返信</div>
+      </div>
+      <div>
+        <div class="ai-center">AI秘書<br><br>（LINE操作）</div>
+      </div>
+      <div>
+        <div class="ai-item" style="background:var(--red);">🗣 MTG入れて<br>→ カレンダー自動登録</div>
+        <div class="ai-item" style="background:var(--gold);">✈️ 航空券調べて<br>→ 候補便URLを即送信</div>
+        <div class="ai-item" style="background:var(--green);">📊 今週の売上は<br>→ レポートをLINEで配信</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-num">5 / 10</div>
+</section>
+
+<!-- =================== S6: 機能一覧 =================== -->
+<section>
+  <div class="header">
+    <h2>03  具体的な機能と導入効果（Phase 1）</h2>
+    <p class="sub">まずこの5機能から始める</p>
+  </div>
+  <div class="content">
+    <div class="feature-row">
+      <span class="feature-phase" style="background:var(--green);">P1</span>
+      <span class="feature-title">📸 キャプション自動生成</span>
+      <span class="feature-desc">写真を送るだけで投稿文+ハッシュタグ生成。週7投稿を30分以内に完了。</span>
+      <span class="feature-effect" style="background:var(--green);">✅ 週2〜3h削減</span>
+    </div>
+    <div class="feature-row">
+      <span class="feature-phase" style="background:var(--org);">P1</span>
+      <span class="feature-title">📦 在庫管理・欠品検知</span>
+      <span class="feature-desc">カメラ/バーコードで在庫把握。欠品検知してディーラーへ自動発注。</span>
+      <span class="feature-effect" style="background:var(--org);">✅ 欠品ゼロへ</span>
+    </div>
+    <div class="feature-row">
+      <span class="feature-phase" style="background:var(--blue);">P1</span>
+      <span class="feature-title">💬 LINE FAQ自動返信</span>
+      <span class="feature-desc">定型質問にAIが24時間自動返信。施術中の対応負担ゼロ。</span>
+      <span class="feature-effect" style="background:var(--blue);">✅ 対応工数-70%</span>
+    </div>
+    <div class="feature-row">
+      <span class="feature-phase" style="background:var(--red);">P1</span>
+      <span class="feature-title">🗣 音声カレンダー操作</span>
+      <span class="feature-desc">「明日15時にMTG入れて」で即登録。施術中でも使える。</span>
+      <span class="feature-effect" style="background:var(--red);">✅ 管理工数ゼロ</span>
+    </div>
+    <div class="feature-row">
+      <span class="feature-phase" style="background:var(--gold);">P1</span>
+      <span class="feature-title">🌟 口コミ自動返信AI</span>
+      <span class="feature-desc">新着口コミ通知→AI返信案を承認するだけで自動投稿。</span>
+      <span class="feature-effect" style="background:var(--gold);">✅ 口コミ返信-80%</span>
+    </div>
+  </div>
+  <div class="page-num">6 / 10</div>
+</section>
+
+<!-- =================== S7: Mie-C × AI秘書 =================== -->
+<section>
+  <div class="header">
+    <h2>04  Mie-C × AI秘書：連携の可能性</h2>
+    <p class="sub">Mie-Cの既存基盤にAI秘書を組み込むことで、提供価値が飛躍的に高まる</p>
+  </div>
+  <div class="content">
+    <div class="card blue" style="padding:14px 16px;margin-bottom:9px;">
+      <h4>Mie-C LINE + AI秘書</h4>
+      <p>LINEの構築をミツイ様が支援し、その上でAI秘書が動く。オーナーはLINEひとつで全業務を操作できる。</p>
+    </div>
+    <div class="card green" style="padding:14px 16px;margin-bottom:9px;">
+      <h4>Mie-C EC + 在庫管理AI</h4>
+      <p>ECサイトの受注データと在庫AIを連携。オンライン販売と実店舗の在庫を一元管理できる。</p>
+    </div>
+    <div class="card org" style="padding:14px 16px;margin-bottom:9px;">
+      <h4>Mie-C HP + SNS自動投稿</h4>
+      <p>HPとSNSの内容をAIが一括生成・管理。コンテンツ更新の工数をゼロに近づける。</p>
+    </div>
+    <div class="footer-bar">
+      <span class="arrow">→</span>「Mie-Cおまかせパッケージ」としてAI秘書をセット提案。ミツイ様の競合優位性が大きく高まります。
+    </div>
+  </div>
+  <div class="page-num">7 / 10</div>
+</section>
+
+<!-- =================== S8: 在庫管理共同開発 =================== -->
+<section>
+  <div class="header">
+    <h2>05  在庫管理自動化：共同開発のご提案</h2>
+    <p class="sub">ミツイ様のデータ・APIをお借りすることで、業界特化の在庫AIを実現する</p>
+  </div>
+  <div class="content">
+    <div class="flow-wrap" style="margin-bottom:12px;">
+      <div class="flow-step">
+        <div class="flow-head" style="background:var(--blue);">美容室</div>
+        <div class="flow-body" style="background:#eef4ff;">カメラ/バーコード<br>在庫状況を検知</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-head" style="background:var(--org);">AI秘書</div>
+        <div class="flow-body" style="background:#fef6ea;">欠品閾値を計算<br>発注数量を決定</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-head" style="background:var(--green);">ミツイ API</div>
+        <div class="flow-body" style="background:#eafaf2;">在庫確認・価格<br>発注受付・配送</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-head" style="background:var(--red);">完了通知</div>
+        <div class="flow-body" style="background:#fdeaea;">オーナーに<br>自動通知</div>
+      </div>
+    </div>
+    <p style="font-size:0.65em;font-weight:700;color:var(--dark);margin:0 0 6px 0;">ミツイ様にご提供いただきたいもの</p>
+    <div class="grid-3">
+      <div class="card blue"><h4>API連携</h4><p>在庫照会・発注受付・配送予定のAPI連携方法</p></div>
+      <div class="card org"><h4>商品マスタ</h4><p>JANコード・品名・価格・最小発注数のデータ</p></div>
+      <div class="card green"><h4>発注履歴</h4><p>サロン別発注実績データ（AI学習用・匿名化可）</p></div>
+    </div>
+    <div class="footer-bar">
+      <span class="arrow">→</span>ミツイ様の在庫システムと連携することで「欠品ゼロ・過剰在庫ゼロ」を実現。サロン満足度とミツイ様の売上安定化を同時達成。
+    </div>
+  </div>
+  <div class="page-num">8 / 10</div>
+</section>
+
+<!-- =================== S9: ビジネスモデル =================== -->
+<section>
+  <div class="header">
+    <h2>06  ビジネスモデルとロードマップ</h2>
+    <p class="sub">8月本番リリースに向けた共同開発スケジュール</p>
+  </div>
+  <div class="content">
+    <div class="grid-3" style="margin-bottom:12px;">
+      <div class="card blue" style="padding:12px 14px;">
+        <h4>💰 AI秘書の白ラベル再販</h4>
+        <p>ミツイ様が契約サロンへ提供。<br>月額×100サロン＝月500万の安定収益</p>
+      </div>
+      <div class="card green" style="padding:12px 14px;">
+        <h4>📦 在庫最適化による売上増</h4>
+        <p>欠品ゼロで発注機会損失なし。<br>適切な在庫水準で発注単価が最適化</p>
+      </div>
+      <div class="card org" style="padding:12px 14px;">
+        <h4>🤝 サロンとの関係強化</h4>
+        <p>AI接点でデータが蓄積。<br>より深いコンサルティングが可能に</p>
+      </div>
+    </div>
+    <div class="phase-wrap">
+      <div class="phase-box" style="background:var(--blue);">
+        <div class="phase-head">Phase 0<br>4月上旬</div>
+        <div class="phase-body">要件定義<br>・設計</div>
+      </div>
+      <div style="display:flex;align-items:center;color:white;font-size:0.9em;padding:0 2px;margin-top:20px;">▶</div>
+      <div class="phase-box" style="background:var(--green);">
+        <div class="phase-head">Phase 1<br>4〜5月</div>
+        <div class="phase-body">手動在庫<br>LINE基盤</div>
+      </div>
+      <div style="display:flex;align-items:center;color:white;font-size:0.9em;padding:0 2px;margin-top:20px;">▶</div>
+      <div class="phase-box" style="background:var(--org);">
+        <div class="phase-head">Phase 2<br>5〜6月</div>
+        <div class="phase-body">画像認識<br>在庫カウント</div>
+      </div>
+      <div style="display:flex;align-items:center;color:white;font-size:0.9em;padding:0 2px;margin-top:20px;">▶</div>
+      <div class="phase-box" style="background:var(--red);">
+        <div class="phase-head">Phase 3<br>6〜7月</div>
+        <div class="phase-body">AI認識<br>精度UP</div>
+      </div>
+      <div style="display:flex;align-items:center;color:white;font-size:0.9em;padding:0 2px;margin-top:20px;">▶</div>
+      <div class="phase-box" style="background:var(--gold);">
+        <div class="phase-head">リリース<br>8月中旬</div>
+        <div class="phase-body">本番<br>稼働開始</div>
+      </div>
+    </div>
+    <div class="footer-bar" style="margin-top:8px;">
+      4月：作る　／　5月：使わせる　／　6月：AI化　／　7月：磨く　／　8月：売る
+    </div>
+  </div>
+  <div class="page-num">9 / 10</div>
+</section>
+
+<!-- =================== S10: 次のステップ =================== -->
+<section>
+  <div class="slide-title">
+    <div class="badge">06  次のステップ</div>
+    <h1 style="font-size:1.6em;">モニタープログラムへの<br>ご参加をお願いします</h1>
+    <div class="divider"></div>
+    <div style="display:flex;gap:16px;margin-top:10px;">
+      <div class="step-card">
+        <div class="step-head" style="background:var(--blue);">STEP 1<br>今週中</div>
+        <div class="step-body">モニターサロン候補の<br>共有をお願いします</div>
+      </div>
+      <div class="step-card">
+        <div class="step-head" style="background:var(--green);">STEP 2<br>4月第1週</div>
+        <div class="step-body">技術担当者との<br>API仕様打ち合わせ</div>
+      </div>
+      <div class="step-card">
+        <div class="step-head" style="background:var(--org);">STEP 3<br>4月中旬〜</div>
+        <div class="step-body">Phase 0 開始<br>合同キックオフ</div>
+      </div>
+    </div>
+    <div class="page-num">10 / 10</div>
+  </div>
+</section>
+
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    width: 1280,
+    height: 720,
+    margin: 0,
+    controls: true,
+    progress: true,
+    slideNumber: false,
+    transition: 'slide',
+    backgroundTransition: 'fade'
+  });
+</script>
+</body>
+</html>
