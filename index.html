@@ -5,133 +5,251 @@
 <title>美容室向け AI秘書 導入提案 × ミツイ様</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&family=Inter:wght@300;400;600;700;900&display=swap');
+
 :root {
-  --navy:  #1a3460;
-  --blue:  #1a6ad6;
-  --lblue: #4a9fe0;
-  --cyan:  #0ea5c8;
+  --black: #1a1a1a;
+  --soft:  #2d2d2d;
+  --gray:  #888888;
+  --light: #cccccc;
+  --off:   #f5f5f5;
   --white: #ffffff;
-  --off:   #f7f8fc;
-  --light: #eef2fb;
-  --mgray: #8090a8;
-  --dgray: #3a4555;
-  --dark:  #121826;
-  --green: #0d9455;
-  --org:   #d47518;
-  --red:   #c02828;
-  --gold:  #b89010;
-  --border:#d8dfe8;
+  --blue:  #1a5fd6;   /* 唯一のアクセント */
 }
 
-.reveal { font-family: 'Hiragino Sans','Yu Gothic',sans-serif; background:#fff; }
-.reveal .slides section { background:#fff; text-align:left; padding:0; }
+.reveal {
+  font-family: 'Inter', 'Noto Sans JP', sans-serif;
+  background: #fff;
+  color: var(--black);
+}
+.reveal .slides section {
+  background: #fff;
+  text-align: left;
+  padding: 0;
+}
 .reveal h1,.reveal h2,.reveal h3,.reveal h4,.reveal p,.reveal li { text-transform:none; }
 
-/* ======= ヘッダー ======= */
-.hdr { border-left:6px solid var(--blue); padding:16px 40px 12px 36px; border-bottom:1px solid var(--border); }
-.hdr h2 { font-size:1.25em; font-weight:800; color:var(--dark); margin:0 0 4px; }
-.hdr .sub { font-size:0.62em; color:var(--mgray); margin:0; font-style:italic; }
+/* ======= ページ全体レイアウト ======= */
+.slide {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 52px 72px 44px;
+  box-sizing: border-box;
+  position: relative;
+}
 
-/* ======= コンテンツ ======= */
-.cnt { padding:16px 40px 10px 42px; }
-
-/* ======= フッター ======= */
-.ftr { background:var(--navy); color:#fff; font-size:0.58em; font-weight:600;
-       text-align:center; padding:8px 20px; margin-top:auto; }
-.ftr .arr { color:var(--cyan); margin-right:6px; }
+/* ======= 共通ロゴ ======= */
+.logo {
+  position: absolute;
+  bottom: 28px;
+  right: 60px;
+  height: 24px;
+  opacity: 0.7;
+}
 
 /* ======= ページ番号 ======= */
-.pg { position:absolute; bottom:10px; right:30px; font-size:0.48em; color:var(--mgray); }
-
-/* ======= ロゴ ======= */
-.logo { position:absolute; bottom:12px; left:40px; height:28px; }
-
-/* ======= カード ======= */
-.card { background:#fff; border:1px solid var(--border); border-left:5px solid var(--blue);
-        padding:12px 14px; margin-bottom:8px; }
-.card h4 { margin:0 0 5px; font-size:0.7em; }
-.card p  { margin:0; font-size:0.58em; color:var(--dgray); line-height:1.5; }
-.card.blue  { border-left-color:var(--blue);  } .card.blue  h4 { color:var(--blue);  }
-.card.green { border-left-color:var(--green); } .card.green h4 { color:var(--green); }
-.card.org   { border-left-color:var(--org);   } .card.org   h4 { color:var(--org);   }
-.card.red   { border-left-color:var(--red);   } .card.red   h4 { color:var(--red);   }
-.card.gold  { border-left-color:var(--gold);  } .card.gold  h4 { color:var(--gold);  }
-
-/* ======= グリッド ======= */
-.g2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
-.g4 { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:8px; }
-
-/* ======= アジェンダ ======= */
-.ag-item { display:flex; align-items:center; background:var(--off);
-           border:1px solid var(--border); padding:8px 14px; margin-bottom:7px; }
-.ag-num  { background:var(--blue); color:#fff; font-size:0.72em; font-weight:700;
-           width:36px; min-width:36px; height:36px; display:flex; align-items:center;
-           justify-content:center; margin-right:14px; }
-.ag-t { font-size:0.66em; font-weight:700; color:var(--dark); margin:0; }
-.ag-m { font-size:0.54em; color:var(--mgray); margin:2px 0 0; font-style:italic; }
-
-/* ======= 機能行 ======= */
-.feat { display:flex; align-items:center; background:var(--off);
-        border:1px solid var(--border); border-left:5px solid var(--blue);
-        padding:7px 12px; margin-bottom:6px; gap:10px; }
-.feat-ph { color:#fff; font-size:0.52em; font-weight:700;
-           padding:3px 9px; min-width:26px; text-align:center; flex-shrink:0; }
-.feat-t { font-size:0.68em; font-weight:700; color:var(--dark); min-width:160px; flex-shrink:0; }
-.feat-d { font-size:0.55em; color:var(--mgray); flex:1; line-height:1.4; }
-.feat-e { color:#fff; font-size:0.54em; font-weight:700;
-           padding:4px 10px; text-align:center; min-width:95px; flex-shrink:0; }
-
-/* ======= フロー ======= */
-.flow { display:flex; align-items:stretch; gap:0; margin:8px 0; }
-.flow-s { flex:1; }
-.flow-h { color:#fff; font-size:0.6em; font-weight:700; text-align:center; padding:7px 6px; }
-.flow-b { font-size:0.54em; text-align:center; padding:12px 8px; line-height:1.5;
-          border:1px solid var(--border); border-top:none; color:var(--dgray); }
-.flow-arr { display:flex; align-items:center; font-size:1.1em; color:var(--mgray);
-            padding:0 4px; margin-top:16px; }
-
-/* ======= フェーズ ======= */
-.phases { display:flex; gap:4px; margin:8px 0; }
-.ph-box { flex:1; overflow:hidden; border-radius:2px; }
-.ph-h { color:#fff; font-size:0.52em; font-weight:700; text-align:center;
-        padding:5px 4px; background:rgba(0,0,0,0.25); white-space:pre-line; }
-.ph-b { color:#fff; font-size:0.5em; text-align:center; padding:8px 4px;
-        line-height:1.5; min-height:52px; white-space:pre-line; }
-
-/* ======= AIレイアウト ======= */
-.ai-lay { display:grid; grid-template-columns:3fr 2fr 3fr; gap:8px; align-items:start; }
-.ai-ctr { background:var(--blue); color:#fff; text-align:center; font-size:0.68em;
-          font-weight:700; padding:28px 10px; border-radius:3px; }
-.ai-item { color:#fff; font-size:0.57em; font-weight:600; text-align:center;
-           padding:9px 8px; margin-bottom:7px; border-radius:2px; line-height:1.4; }
-
-/* ======= ステップ ======= */
-.step-h { color:#fff; font-size:0.68em; font-weight:700; text-align:center; padding:10px; line-height:1.4; }
-.step-b { background:var(--light); font-size:0.6em; text-align:center; padding:14px 10px;
-          line-height:1.6; color:var(--dgray); border:1px solid var(--border); border-top:none; }
+.pn {
+  position: absolute;
+  bottom: 32px;
+  left: 72px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.45em;
+  letter-spacing: 0.15em;
+  color: var(--light);
+}
 
 /* ======= タイトルスライド ======= */
 .title-slide {
-  background:#fff;
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:0 60px 0 50px;
-  border-left:8px solid var(--blue);
-  border-top:4px solid var(--blue);
-  position:relative;
+  padding: 72px 96px;
+  justify-content: flex-end;
 }
-.title-slide .badge {
-  background:var(--blue); color:#fff; font-size:0.58em; font-weight:700;
-  display:inline-block; padding:5px 16px; margin-bottom:18px; width:fit-content;
+.title-slide .kicker {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.52em;
+  letter-spacing: 0.35em;
+  font-weight: 400;
+  color: var(--gray);
+  text-transform: uppercase;
+  margin-bottom: 32px;
 }
-.title-slide h1 { font-size:1.9em; font-weight:900; color:var(--dark); margin:0 0 8px; line-height:1.25; }
-.title-slide .sub-t { font-size:1.1em; color:var(--blue); font-weight:700; margin-bottom:24px; }
-.title-slide .divider { width:80px; height:3px; background:var(--blue); margin:20px 0; }
-.title-slide .partner { font-size:0.82em; color:var(--navy); font-weight:600; margin-bottom:6px; }
-.title-slide .presenter { font-size:0.6em; color:var(--mgray); font-style:italic; }
+.title-slide h1 {
+  font-size: 2.6em;
+  font-weight: 900;
+  line-height: 1.15;
+  color: var(--black);
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+.title-slide .sub {
+  font-size: 1.05em;
+  font-weight: 300;
+  color: var(--gray);
+  letter-spacing: 0.05em;
+  margin: 0 0 48px;
+}
+.title-slide .meta {
+  font-size: 0.56em;
+  font-weight: 300;
+  color: var(--gray);
+  letter-spacing: 0.1em;
+  line-height: 2.2;
+}
+.title-slide .line {
+  width: 48px;
+  height: 2px;
+  background: var(--black);
+  margin-bottom: 40px;
+}
+
+/* ======= 通常スライドのヘッダー ======= */
+.sh {
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.sh .cat {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.46em;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gray);
+  font-weight: 400;
+  margin: 0 0 10px;
+}
+.sh h2 {
+  font-size: 1.35em;
+  font-weight: 700;
+  color: var(--black);
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+.sh .sub {
+  font-size: 0.6em;
+  font-weight: 300;
+  color: var(--gray);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+/* ======= コンテンツ ======= */
+.body { flex: 1; }
+
+/* ======= フッターノート ======= */
+.note {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid #e8e8e8;
+  font-size: 0.52em;
+  font-weight: 400;
+  color: var(--gray);
+  letter-spacing: 0.02em;
+}
+.note .arr { color: var(--blue); margin-right: 6px; font-weight: 700; }
+
+/* ======= グリッド ======= */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.g4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+
+/* ======= カード（ミニマル） ======= */
+.mc {
+  padding: 18px 20px;
+  border: 1px solid #e0e0e0;
+}
+.mc .mc-cat {
+  font-size: 0.46em;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gray);
+  font-weight: 400;
+  margin: 0 0 8px;
+}
+.mc h4 {
+  font-size: 0.7em;
+  font-weight: 700;
+  color: var(--black);
+  margin: 0 0 8px;
+  letter-spacing: 0.01em;
+}
+.mc p {
+  font-size: 0.57em;
+  font-weight: 300;
+  color: var(--soft);
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* ======= アジェンダ ======= */
+.ag {
+  display: flex;
+  align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.ag:first-child { border-top: 1px solid #f0f0f0; }
+.ag-n {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.52em;
+  letter-spacing: 0.2em;
+  color: var(--light);
+  font-weight: 400;
+  min-width: 44px;
+}
+.ag-t { font-size: 0.7em; font-weight: 600; color: var(--black); flex: 1; letter-spacing: 0.01em; }
+.ag-m { font-size: 0.52em; font-weight: 300; color: var(--gray); margin-left: 20px; letter-spacing: 0.05em; white-space: nowrap; }
+
+/* ======= 機能リスト ======= */
+.fl {
+  display: flex;
+  align-items: center;
+  padding: 13px 0;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 16px;
+}
+.fl:first-child { border-top: 1px solid #f0f0f0; }
+.fl-n {
+  font-size: 0.46em;
+  letter-spacing: 0.2em;
+  color: var(--blue);
+  font-weight: 600;
+  min-width: 30px;
+}
+.fl-t { font-size: 0.68em; font-weight: 700; color: var(--black); min-width: 155px; flex-shrink: 0; }
+.fl-d { font-size: 0.56em; font-weight: 300; color: var(--gray); flex: 1; line-height: 1.5; }
+.fl-e { font-size: 0.52em; font-weight: 600; color: var(--blue); min-width: 90px; text-align: right; flex-shrink: 0; }
+
+/* ======= フロー ======= */
+.flow { display: flex; align-items: stretch; gap: 0; margin: 10px 0; }
+.fw-s { flex: 1; }
+.fw-h { font-size: 0.58em; font-weight: 700; text-align: center; padding: 10px 8px; color: #fff; letter-spacing: 0.05em; }
+.fw-b { font-size: 0.54em; font-weight: 300; text-align: center; padding: 14px 10px; line-height: 1.6; color: var(--soft); border: 1px solid #e8e8e8; border-top: none; }
+.fw-arr { display: flex; align-items: center; font-size: 0.9em; color: var(--light); padding: 0 6px; margin-top: 20px; }
+
+/* ======= フェーズ ======= */
+.phases { display: flex; gap: 3px; margin: 12px 0; }
+.ph { flex: 1; }
+.ph-h { font-size: 0.5em; font-weight: 700; text-align: center; padding: 7px 4px; color: #fff; line-height: 1.4; }
+.ph-b { font-size: 0.5em; font-weight: 300; text-align: center; padding: 12px 4px; line-height: 1.6; min-height: 55px; color: var(--soft); border: 1px solid #e8e8e8; border-top: none; }
+
+/* ======= AI図 ======= */
+.ai-g { display: grid; grid-template-columns: 5fr 3fr 5fr; gap: 12px; align-items: start; }
+.ai-c { background: var(--black); color: #fff; text-align: center; font-size: 0.7em; font-weight: 700; padding: 32px 12px; letter-spacing: 0.05em; }
+.ai-i { font-size: 0.58em; font-weight: 400; text-align: center; padding: 11px 10px; margin-bottom: 8px; line-height: 1.5; border: 1px solid #e8e8e8; color: var(--soft); }
+
+/* ======= ステップ ======= */
+.steps { display: flex; gap: 16px; margin-top: 32px; }
+.st { flex: 1; }
+.st-n { font-family: 'Inter', sans-serif; font-size: 0.48em; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gray); margin: 0 0 10px; }
+.st-t { font-size: 0.68em; font-weight: 700; color: var(--black); margin: 0 0 8px; }
+.st-d { font-size: 0.58em; font-weight: 300; color: var(--gray); line-height: 1.6; margin: 0; }
+
+/* ======= END スライド ======= */
+.end-slide { justify-content: space-between; }
+.end-slide .big { font-size: 2.4em; font-weight: 900; color: var(--black); line-height: 1.15; margin: 0; letter-spacing: -0.02em; }
+.end-slide .small { font-size: 0.58em; font-weight: 300; color: var(--gray); margin: 0; letter-spacing: 0.05em; }
 </style>
 </head>
 <body>
@@ -140,254 +258,290 @@
 
 <!-- S1: タイトル -->
 <section>
-<div class="title-slide">
-  <div class="badge">美容ディーラー向け 事業提案</div>
+<div class="slide title-slide">
+  <div style="flex:1;"></div>
+  <div class="line"></div>
+  <div class="kicker">Business Proposal  ×  Mitsui Corporation</div>
   <h1>美容室の業務を、<br>AIが変える</h1>
-  <div class="sub-t">Mie-C × AI秘書 共同提案</div>
-  <div class="divider"></div>
-  <div class="partner">株式会社ミツイ 様  ×  THE Q INC.</div>
-  <div class="presenter">プレゼンター：QQQ・つるクマ  /  2026年4月</div>
-  <img src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png"
-       style="position:absolute;bottom:28px;right:44px;height:34px;">
-  <div class="pg">1 / 10</div>
+  <div class="sub">Mie-C × AI秘書 共同提案</div>
+  <div class="meta">
+    株式会社ミツイ 様<br>
+    THE Q INC.<br>
+    2026年4月
+  </div>
+  <img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
+  <div class="pn">01</div>
 </div>
 </section>
 
 <!-- S2: アジェンダ -->
 <section>
-<div class="hdr"><h2>本日のアジェンダ</h2><p class="sub">全体で約60分を予定しています</p></div>
-<div class="cnt">
-  <div class="g2">
-    <div>
-      <div class="ag-item"><div class="ag-num">01</div><div><p class="ag-t">ミツイ様が目指すDXの現在地</p><p class="ag-m">⏱ 5分</p></div></div>
-      <div class="ag-item"><div class="ag-num">02</div><div><p class="ag-t">AI秘書が解決する課題</p><p class="ag-m">⏱ 10分</p></div></div>
-      <div class="ag-item"><div class="ag-num">03</div><div><p class="ag-t">具体的な機能と導入効果</p><p class="ag-m">⏱ 10分</p></div></div>
-    </div>
-    <div>
-      <div class="ag-item"><div class="ag-num">04</div><div><p class="ag-t">Mie-C × AI秘書：連携の可能性</p><p class="ag-m">⏱ 10分</p></div></div>
-      <div class="ag-item"><div class="ag-num">05</div><div><p class="ag-t">在庫管理 共同開発のご提案</p><p class="ag-m">⏱ 10分</p></div></div>
-      <div class="ag-item"><div class="ag-num">06</div><div><p class="ag-t">ビジネスモデルと次のステップ</p><p class="ag-m">⏱ 15分</p></div></div>
-    </div>
+<div class="slide">
+  <div class="sh">
+    <p class="cat">Agenda</p>
+    <h2>本日のアジェンダ</h2>
+    <p class="sub">全体で約60分を予定しています</p>
   </div>
+  <div class="body">
+    <div class="ag"><span class="ag-n">01</span><span class="ag-t">ミツイ様が目指すDXの現在地</span><span class="ag-m">5 min</span></div>
+    <div class="ag"><span class="ag-n">02</span><span class="ag-t">AI秘書が解決する課題</span><span class="ag-m">10 min</span></div>
+    <div class="ag"><span class="ag-n">03</span><span class="ag-t">具体的な機能と導入効果</span><span class="ag-m">10 min</span></div>
+    <div class="ag"><span class="ag-n">04</span><span class="ag-t">Mie-C × AI秘書：連携の可能性</span><span class="ag-m">10 min</span></div>
+    <div class="ag"><span class="ag-n">05</span><span class="ag-t">在庫管理 共同開発のご提案</span><span class="ag-m">10 min</span></div>
+    <div class="ag"><span class="ag-n">06</span><span class="ag-t">ビジネスモデルと次のステップ</span><span class="ag-m">15 min</span></div>
+  </div>
+  <img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
+  <div class="pn">02</div>
 </div>
-<img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
-<div class="pg">2 / 10</div>
 </section>
 
 <!-- S3: ミツイのDX現在地 -->
 <section>
-<div class="hdr"><h2>01  ミツイ様が目指すDXの現在地</h2><p class="sub">「モノを売るのではなく、解決策を提供する」— Mie-Cで既に先行している</p></div>
-<div class="cnt">
-  <div class="g4" style="margin-bottom:10px;">
-    <div>
-      <div class="flow-h" style="background:var(--blue);">CMS型HP提供</div>
-      <div class="flow-b">10種以上のテンプレから選べるサロン向けHP（無償提供）</div>
-    </div>
-    <div>
-      <div class="flow-h" style="background:var(--green);">EC（Mie-C plus）</div>
-      <div class="flow-b">在庫なしでネット販売ができるサロン専売品EC</div>
-    </div>
-    <div>
-      <div class="flow-h" style="background:var(--org);">LINEビジネス</div>
-      <div class="flow-b">LINE顧客接点のデジタル化支援</div>
-    </div>
-    <div>
-      <div class="flow-h" style="background:var(--gold);">オンラインセミナー</div>
-      <div class="flow-b">格安セミナー受講、教育コンテンツ提供</div>
+<div class="slide">
+  <div class="sh">
+    <p class="cat">01  Current Status</p>
+    <h2>ミツイ様が目指すDXの現在地</h2>
+    <p class="sub">「モノを売るのではなく、解決策を提供する」— Mie-Cで既に先行している</p>
+  </div>
+  <div class="body">
+    <div class="g4">
+      <div class="mc">
+        <p class="mc-cat">Web</p>
+        <h4>CMS型HP提供</h4>
+        <p>10種以上のテンプレートから選べるサロン向けウェブサイトを無償提供</p>
+      </div>
+      <div class="mc">
+        <p class="mc-cat">E-Commerce</p>
+        <h4>EC（Mie-C plus）</h4>
+        <p>在庫を持たずにネット販売ができるサロン専売品ECシステム</p>
+      </div>
+      <div class="mc">
+        <p class="mc-cat">Messaging</p>
+        <h4>LINEビジネス</h4>
+        <p>LINE顧客接点のデジタル化を支援。サロンとユーザーの接点を強化</p>
+      </div>
+      <div class="mc">
+        <p class="mc-cat">Education</p>
+        <h4>オンラインセミナー</h4>
+        <p>格安でセミナーを受講できる教育コンテンツプラットフォーム</p>
+      </div>
     </div>
   </div>
-  <div class="ftr"><span class="arr">→</span>既に「解決策提供型DX」を推進中のミツイ様に、AI秘書は完全にマッチします。これはその自然な次のステップです。</div>
+  <div class="note"><span class="arr">→</span>既に「解決策提供型DX」を推進中。AI秘書はその自然な次のステップとして提案します。</div>
+  <img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
+  <div class="pn">03</div>
 </div>
-<img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
-<div class="pg">3 / 10</div>
 </section>
 
 <!-- S4: 課題 -->
 <section>
-<div class="hdr"><h2>02  AI秘書が解決する課題</h2><p class="sub">施術以外の業務に追われるオーナーを、AIがサポートする</p></div>
-<div class="cnt">
-  <div class="g2">
-    <div>
-      <div class="card red"><h4>📸 SNS投稿</h4><p>毎回手作業でキャプション・タグを作成。週7投稿で数時間消費。</p></div>
-      <div class="card org"><h4>📦 在庫管理</h4><p>目視＋手書きで管理。欠品・過剰在庫が頻繁に発生。</p></div>
-    </div>
-    <div>
-      <div class="card blue"><h4>💬 顧客対応</h4><p>FAQ・予約・口コミ返信を全部手動。施術中でも対応が必要。</p></div>
-      <div class="card green"><h4>📊 売上分析</h4><p>POS集計は週末に手作業。経営判断が常に後手になる。</p></div>
+<div class="slide">
+  <div class="sh">
+    <p class="cat">02  Problem</p>
+    <h2>AI秘書が解決する課題</h2>
+    <p class="sub">施術以外の業務に追われるオーナーを、AIがサポートする</p>
+  </div>
+  <div class="body">
+    <div class="g2">
+      <div>
+        <div class="mc" style="margin-bottom:12px;">
+          <p class="mc-cat">SNS</p>
+          <h4>📸 SNS投稿</h4>
+          <p>毎回手作業でキャプション・タグを作成。週7投稿で数時間消費している。</p>
+        </div>
+        <div class="mc">
+          <p class="mc-cat">Inventory</p>
+          <h4>📦 在庫管理</h4>
+          <p>目視＋手書きで管理。欠品・過剰在庫が頻繁に発生している。</p>
+        </div>
+      </div>
+      <div>
+        <div class="mc" style="margin-bottom:12px;">
+          <p class="mc-cat">Customer</p>
+          <h4>💬 顧客対応</h4>
+          <p>FAQ・予約・口コミ返信を全部手動。施術中でも対応が必要。</p>
+        </div>
+        <div class="mc">
+          <p class="mc-cat">Analytics</p>
+          <h4>📊 売上分析</h4>
+          <p>POS集計は週末に手作業。経営判断が常に後手になる。</p>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="ftr"><span class="arr">→</span>これらをAIが自動化することで、オーナーは「施術」と「顧客体験」に集中できる環境をつくる</div>
+  <div class="note"><span class="arr">→</span>これらをAIが自動化することで、オーナーは「施術」と「顧客体験」に集中できる環境をつくる</div>
+  <img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
+  <div class="pn">04</div>
 </div>
-<img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
-<div class="pg">4 / 10</div>
 </section>
 
 <!-- S5: AI秘書とは -->
 <section>
-<div class="hdr"><h2>03  AI秘書とは</h2><p class="sub">LINEで話しかけるだけ。それだけで業務が動く。</p></div>
-<div class="cnt">
-  <div class="ai-lay">
-    <div>
-      <div class="ai-item" style="background:var(--green);">📸 写真を送る<br>→ キャプション+タグを生成</div>
-      <div class="ai-item" style="background:var(--org);">📦 在庫確認して<br>→ 欠品検知・自動発注</div>
-      <div class="ai-item" style="background:var(--blue);">💬 FAQ返信して<br>→ AIが24時間自動返信</div>
-    </div>
-    <div><div class="ai-ctr">AI秘書<br><br>（LINE操作）</div></div>
-    <div>
-      <div class="ai-item" style="background:var(--red);">🗣 MTG入れて<br>→ カレンダー自動登録</div>
-      <div class="ai-item" style="background:var(--gold);">✈️ 航空券調べて<br>→ 候補便URLを即送信</div>
-      <div class="ai-item" style="background:var(--green);">📊 今週の売上は<br>→ レポートをLINE配信</div>
+<div class="slide">
+  <div class="sh">
+    <p class="cat">03  Solution</p>
+    <h2>AI秘書とは</h2>
+    <p class="sub">LINEで話しかけるだけ。それだけで業務が動く。</p>
+  </div>
+  <div class="body">
+    <div class="ai-g">
+      <div>
+        <div class="ai-i">📸 写真を送る<br>→ キャプション+タグを自動生成</div>
+        <div class="ai-i">📦 在庫確認して<br>→ 欠品検知・ディーラーへ自動発注</div>
+        <div class="ai-i">💬 FAQ返信して<br>→ AIが24時間自動返信</div>
+      </div>
+      <div><div class="ai-c">AI秘書<br><br>（LINE<br>操作）</div></div>
+      <div>
+        <div class="ai-i">🗣 MTG入れて<br>→ カレンダーに自動登録</div>
+        <div class="ai-i">✈️ 航空券調べて<br>→ 候補便URLを即送信</div>
+        <div class="ai-i">📊 今週の売上は<br>→ レポートをLINEで配信</div>
+      </div>
     </div>
   </div>
+  <img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
+  <div class="pn">05</div>
 </div>
-<img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
-<div class="pg">5 / 10</div>
 </section>
 
 <!-- S6: 機能一覧 -->
 <section>
-<div class="hdr"><h2>03  具体的な機能と導入効果（Phase 1）</h2><p class="sub">まずこの5機能から始める</p></div>
-<div class="cnt">
-  <div class="feat" style="border-left-color:var(--green);">
-    <span class="feat-ph" style="background:var(--green);">P1</span>
-    <span class="feat-t">📸 キャプション自動生成</span>
-    <span class="feat-d">写真を送るだけで投稿文+ハッシュタグ生成。週7投稿を30分以内に完了。</span>
-    <span class="feat-e" style="background:var(--green);">✅ 週2〜3h削減</span>
+<div class="slide">
+  <div class="sh">
+    <p class="cat">03  Features  /  Phase 1</p>
+    <h2>具体的な機能と導入効果</h2>
+    <p class="sub">まずこの5機能から始める</p>
   </div>
-  <div class="feat" style="border-left-color:var(--org);">
-    <span class="feat-ph" style="background:var(--org);">P1</span>
-    <span class="feat-t">📦 在庫管理・欠品検知</span>
-    <span class="feat-d">カメラ/バーコードで在庫把握。欠品検知してディーラーへ自動発注。</span>
-    <span class="feat-e" style="background:var(--org);">✅ 欠品ゼロへ</span>
+  <div class="body">
+    <div class="fl"><span class="fl-n">P1</span><span class="fl-t">📸 キャプション自動生成</span><span class="fl-d">写真を送るだけで投稿文+ハッシュタグ生成。週7投稿を30分以内に完了。</span><span class="fl-e">週2〜3h削減</span></div>
+    <div class="fl"><span class="fl-n">P1</span><span class="fl-t">📦 在庫管理・欠品検知</span><span class="fl-d">カメラ/バーコードで在庫把握。欠品検知してディーラーへ自動発注。</span><span class="fl-e">欠品ゼロへ</span></div>
+    <div class="fl"><span class="fl-n">P1</span><span class="fl-t">💬 LINE FAQ自動返信</span><span class="fl-d">定型質問にAIが24時間自動返信。施術中の対応負担ゼロ。</span><span class="fl-e">対応工数 −70%</span></div>
+    <div class="fl"><span class="fl-n">P1</span><span class="fl-t">🗣 音声カレンダー操作</span><span class="fl-d">「明日15時にMTG入れて」で即登録。施術中でも使える。</span><span class="fl-e">管理工数ゼロ</span></div>
+    <div class="fl"><span class="fl-n">P1</span><span class="fl-t">🌟 口コミ自動返信AI</span><span class="fl-d">新着口コミ通知→AI返信案を承認するだけで自動投稿。</span><span class="fl-e">返信工数 −80%</span></div>
   </div>
-  <div class="feat" style="border-left-color:var(--blue);">
-    <span class="feat-ph" style="background:var(--blue);">P1</span>
-    <span class="feat-t">💬 LINE FAQ自動返信</span>
-    <span class="feat-d">定型質問にAIが24時間自動返信。施術中の対応負担ゼロ。</span>
-    <span class="feat-e" style="background:var(--blue);">✅ 対応工数-70%</span>
-  </div>
-  <div class="feat" style="border-left-color:var(--red);">
-    <span class="feat-ph" style="background:var(--red);">P1</span>
-    <span class="feat-t">🗣 音声カレンダー操作</span>
-    <span class="feat-d">「明日15時にMTG入れて」で即登録。施術中でも使える。</span>
-    <span class="feat-e" style="background:var(--red);">✅ 管理工数ゼロ</span>
-  </div>
-  <div class="feat" style="border-left-color:var(--gold);">
-    <span class="feat-ph" style="background:var(--gold);">P1</span>
-    <span class="feat-t">🌟 口コミ自動返信AI</span>
-    <span class="feat-d">新着口コミ通知→AI返信案を承認するだけで自動投稿。</span>
-    <span class="feat-e" style="background:var(--gold);">✅ 口コミ返信-80%</span>
-  </div>
+  <img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
+  <div class="pn">06</div>
 </div>
-<img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
-<div class="pg">6 / 10</div>
 </section>
 
 <!-- S7: Mie-C × AI秘書 -->
 <section>
-<div class="hdr"><h2>04  Mie-C × AI秘書：連携の可能性</h2><p class="sub">Mie-Cの既存基盤にAI秘書を組み込むことで、提供価値が飛躍的に高まる</p></div>
-<div class="cnt">
-  <div class="card blue" style="padding:14px 16px;margin-bottom:9px;">
-    <h4>Mie-C LINE + AI秘書</h4>
-    <p>LINEの構築をミツイ様が支援し、その上でAI秘書が動く。オーナーはLINEひとつで全業務を操作できる。</p>
+<div class="slide">
+  <div class="sh">
+    <p class="cat">04  Synergy</p>
+    <h2>Mie-C × AI秘書：連携の可能性</h2>
+    <p class="sub">Mie-Cの既存基盤にAI秘書を組み込むことで、提供価値が飛躍的に高まる</p>
   </div>
-  <div class="card green" style="padding:14px 16px;margin-bottom:9px;">
-    <h4>Mie-C EC + 在庫管理AI</h4>
-    <p>ECサイトの受注データと在庫AIを連携。オンライン販売と実店舗の在庫を一元管理できる。</p>
+  <div class="body">
+    <div class="mc" style="margin-bottom:12px;">
+      <p class="mc-cat">LINE + AI</p>
+      <h4>Mie-C LINE + AI秘書</h4>
+      <p>LINEの構築をミツイ様が支援し、その上でAI秘書が動く。オーナーはLINEひとつで全業務を操作できる。</p>
+    </div>
+    <div class="mc" style="margin-bottom:12px;">
+      <p class="mc-cat">EC + AI</p>
+      <h4>Mie-C EC + 在庫管理AI</h4>
+      <p>ECサイトの受注データと在庫AIを連携。オンライン販売と実店舗の在庫を一元管理できる。</p>
+    </div>
+    <div class="mc">
+      <p class="mc-cat">Web + SNS</p>
+      <h4>Mie-C HP + SNS自動投稿</h4>
+      <p>HPとSNSの内容をAIが一括生成・管理。コンテンツ更新の工数をゼロに近づける。</p>
+    </div>
   </div>
-  <div class="card org" style="padding:14px 16px;margin-bottom:9px;">
-    <h4>Mie-C HP + SNS自動投稿</h4>
-    <p>HPとSNSの内容をAIが一括生成・管理。コンテンツ更新の工数をゼロに近づける。</p>
-  </div>
-  <div class="ftr"><span class="arr">→</span>「Mie-Cおまかせパッケージ」としてAI秘書をセット提案。ミツイ様の競合優位性が大きく高まります。</div>
+  <div class="note"><span class="arr">→</span>「Mie-Cおまかせパッケージ」としてAI秘書をセット提案。ミツイ様の競合優位性が大きく高まります。</div>
+  <img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
+  <div class="pn">07</div>
 </div>
-<img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
-<div class="pg">7 / 10</div>
 </section>
 
 <!-- S8: 在庫管理共同開発 -->
 <section>
-<div class="hdr"><h2>05  在庫管理自動化：共同開発のご提案</h2><p class="sub">ミツイ様のデータ・APIをお借りすることで、業界特化の在庫AIを実現する</p></div>
-<div class="cnt">
-  <div class="flow" style="margin-bottom:12px;">
-    <div class="flow-s"><div class="flow-h" style="background:var(--blue);">美容室</div><div class="flow-b">カメラ/バーコード<br>在庫状況を検知</div></div>
-    <div class="flow-arr">→</div>
-    <div class="flow-s"><div class="flow-h" style="background:var(--org);">AI秘書</div><div class="flow-b">欠品閾値を計算<br>発注数量を決定</div></div>
-    <div class="flow-arr">→</div>
-    <div class="flow-s"><div class="flow-h" style="background:var(--green);">ミツイ API</div><div class="flow-b">在庫確認・価格<br>発注受付・配送</div></div>
-    <div class="flow-arr">→</div>
-    <div class="flow-s"><div class="flow-h" style="background:var(--red);">完了通知</div><div class="flow-b">オーナーに<br>自動通知</div></div>
+<div class="slide">
+  <div class="sh">
+    <p class="cat">05  Co-Development</p>
+    <h2>在庫管理自動化：共同開発のご提案</h2>
+    <p class="sub">ミツイ様のデータ・APIをお借りすることで、業界特化の在庫AIを実現する</p>
   </div>
-  <p style="font-size:0.64em;font-weight:700;color:var(--dark);margin:0 0 6px;">ミツイ様にご提供いただきたいもの</p>
-  <div class="g3">
-    <div class="card blue"><h4>API連携</h4><p>在庫照会・発注受付・配送予定のAPI連携方法</p></div>
-    <div class="card org"><h4>商品マスタ</h4><p>JANコード・品名・価格・最小発注数のデータ</p></div>
-    <div class="card green"><h4>発注履歴</h4><p>サロン別発注実績データ（AI学習用・匿名化可）</p></div>
+  <div class="body">
+    <div class="flow" style="margin-bottom:18px;">
+      <div class="fw-s"><div class="fw-h" style="background:var(--black);">美容室</div><div class="fw-b">カメラ / バーコード<br>在庫状況を検知</div></div>
+      <div class="fw-arr">→</div>
+      <div class="fw-s"><div class="fw-h" style="background:var(--black);">AI秘書</div><div class="fw-b">欠品閾値を計算<br>発注数量を決定</div></div>
+      <div class="fw-arr">→</div>
+      <div class="fw-s"><div class="fw-h" style="background:var(--blue);">ミツイ API</div><div class="fw-b">在庫確認・価格<br>発注受付・配送</div></div>
+      <div class="fw-arr">→</div>
+      <div class="fw-s"><div class="fw-h" style="background:var(--black);">完了通知</div><div class="fw-b">オーナーに<br>自動通知</div></div>
+    </div>
+    <p style="font-size:0.5em;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);margin:0 0 10px;">Required from Mitsui</p>
+    <div class="g3">
+      <div class="mc"><p class="mc-cat">API</p><h4>API連携</h4><p>在庫照会・発注受付・配送予定のAPI連携方法</p></div>
+      <div class="mc"><p class="mc-cat">Master Data</p><h4>商品マスタ</h4><p>JANコード・品名・価格・最小発注数のデータ</p></div>
+      <div class="mc"><p class="mc-cat">History</p><h4>発注履歴</h4><p>サロン別発注実績データ（AI学習用・匿名化可）</p></div>
+    </div>
   </div>
-  <div class="ftr"><span class="arr">→</span>ミツイ様の在庫システムと連携することで「欠品ゼロ・過剰在庫ゼロ」を実現。サロン満足度とミツイ様の売上安定化を同時達成。</div>
+  <img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
+  <div class="pn">08</div>
 </div>
-<img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
-<div class="pg">8 / 10</div>
 </section>
 
 <!-- S9: ビジネスモデル -->
 <section>
-<div class="hdr"><h2>06  ビジネスモデルとロードマップ</h2><p class="sub">8月本番リリースに向けた共同開発スケジュール</p></div>
-<div class="cnt">
-  <div class="g3" style="margin-bottom:10px;">
-    <div class="card blue" style="padding:12px 14px;">
-      <h4>💰 AI秘書の白ラベル再販</h4>
-      <p>ミツイ様が契約サロンへ提供。<br>月額×100サロン＝月500万の安定収益</p>
+<div class="slide">
+  <div class="sh">
+    <p class="cat">06  Business Model  /  Roadmap</p>
+    <h2>ビジネスモデルとロードマップ</h2>
+    <p class="sub">2026年8月の本番リリースに向けて</p>
+  </div>
+  <div class="body">
+    <div class="g3" style="margin-bottom:16px;">
+      <div class="mc"><p class="mc-cat">Revenue</p><h4>白ラベル再販</h4><p>ミツイ様が契約サロンへ提供。月額×100サロン＝月500万の安定収益</p></div>
+      <div class="mc"><p class="mc-cat">Sales</p><h4>在庫最適化</h4><p>欠品ゼロで発注機会損失なし。適切な在庫水準で発注単価が最適化</p></div>
+      <div class="mc"><p class="mc-cat">Relationship</p><h4>関係強化</h4><p>AI接点でデータが蓄積。より深いコンサルティングが可能に</p></div>
     </div>
-    <div class="card green" style="padding:12px 14px;">
-      <h4>📦 在庫最適化による売上増</h4>
-      <p>欠品ゼロで発注機会損失なし。<br>適切な在庫水準で発注単価が最適化</p>
-    </div>
-    <div class="card org" style="padding:12px 14px;">
-      <h4>🤝 サロンとの関係強化</h4>
-      <p>AI接点でデータが蓄積。<br>より深いコンサルティングが可能に</p>
+    <div class="phases">
+      <div class="ph"><div class="ph-h" style="background:var(--black);">P0<br>4月上旬</div><div class="ph-b">要件定義<br>設計</div></div>
+      <div style="display:flex;align-items:center;font-size:0.7em;color:var(--light);padding:0 2px;margin-top:18px;">▶</div>
+      <div class="ph"><div class="ph-h" style="background:var(--black);">P1<br>4〜5月</div><div class="ph-b">手動在庫<br>LINE基盤</div></div>
+      <div style="display:flex;align-items:center;font-size:0.7em;color:var(--light);padding:0 2px;margin-top:18px;">▶</div>
+      <div class="ph"><div class="ph-h" style="background:var(--black);">P2<br>5〜6月</div><div class="ph-b">画像認識<br>在庫カウント</div></div>
+      <div style="display:flex;align-items:center;font-size:0.7em;color:var(--light);padding:0 2px;margin-top:18px;">▶</div>
+      <div class="ph"><div class="ph-h" style="background:var(--black);">P3<br>6〜7月</div><div class="ph-b">AI認識<br>精度UP</div></div>
+      <div style="display:flex;align-items:center;font-size:0.7em;color:var(--light);padding:0 2px;margin-top:18px;">▶</div>
+      <div class="ph"><div class="ph-h" style="background:var(--blue);">リリース<br>8月中旬</div><div class="ph-b">本番<br>稼働開始</div></div>
     </div>
   </div>
-  <div class="phases">
-    <div class="ph-box" style="background:var(--blue);"><div class="ph-h">Phase 0<br>4月上旬</div><div class="ph-b">要件定義<br>・設計</div></div>
-    <div style="display:flex;align-items:center;font-size:0.9em;color:var(--mgray);padding:0 2px;margin-top:16px;">▶</div>
-    <div class="ph-box" style="background:var(--green);"><div class="ph-h">Phase 1<br>4〜5月</div><div class="ph-b">手動在庫<br>LINE基盤</div></div>
-    <div style="display:flex;align-items:center;font-size:0.9em;color:var(--mgray);padding:0 2px;margin-top:16px;">▶</div>
-    <div class="ph-box" style="background:var(--org);"><div class="ph-h">Phase 2<br>5〜6月</div><div class="ph-b">画像認識<br>在庫カウント</div></div>
-    <div style="display:flex;align-items:center;font-size:0.9em;color:var(--mgray);padding:0 2px;margin-top:16px;">▶</div>
-    <div class="ph-box" style="background:var(--red);"><div class="ph-h">Phase 3<br>6〜7月</div><div class="ph-b">AI認識<br>精度UP</div></div>
-    <div style="display:flex;align-items:center;font-size:0.9em;color:var(--mgray);padding:0 2px;margin-top:16px;">▶</div>
-    <div class="ph-box" style="background:var(--gold);"><div class="ph-h">リリース<br>8月中旬</div><div class="ph-b">本番<br>稼働開始</div></div>
-  </div>
-  <div class="ftr" style="margin-top:8px;">4月：作る　／　5月：使わせる　／　6月：AI化　／　7月：磨く　／　8月：売る</div>
+  <div class="note">4月：作る　／　5月：使わせる　／　6月：AI化　／　7月：磨く　／　8月：売る</div>
+  <img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
+  <div class="pn">09</div>
 </div>
-<img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
-<div class="pg">9 / 10</div>
 </section>
 
 <!-- S10: 次のステップ -->
 <section>
-<div class="title-slide" style="border-left-color:var(--green);">
-  <div class="badge" style="background:var(--green);">06  次のステップ</div>
-  <h1 style="font-size:1.55em;">モニタープログラムへの<br>ご参加をお願いします</h1>
-  <div class="divider" style="background:var(--green);"></div>
-  <div style="display:flex;gap:16px;margin-top:10px;">
-    <div style="flex:1;">
-      <div class="step-h" style="background:var(--blue);">STEP 1<br>今週中</div>
-      <div class="step-b">モニターサロン候補の<br>共有をお願いします</div>
+<div class="slide end-slide">
+  <div>
+    <p style="font-family:'Inter',sans-serif;font-size:0.48em;letter-spacing:0.3em;text-transform:uppercase;color:var(--gray);margin:0 0 28px;">06  Next Steps</p>
+    <p class="big">モニタープログラムへの<br>ご参加をお願いします</p>
+  </div>
+  <div class="steps">
+    <div class="st">
+      <p class="st-n">Step 01  /  今週中</p>
+      <p class="st-t">モニターサロン候補の共有</p>
+      <p class="st-d">ミツイ様の契約サロンの中からモニター候補をご共有ください</p>
     </div>
-    <div style="flex:1;">
-      <div class="step-h" style="background:var(--green);">STEP 2<br>4月第1週</div>
-      <div class="step-b">技術担当者との<br>API仕様打ち合わせ</div>
+    <div class="st">
+      <p class="st-n">Step 02  /  4月第1週</p>
+      <p class="st-t">API仕様打ち合わせ</p>
+      <p class="st-d">技術担当者との在庫システムAPI仕様打ち合わせを実施</p>
     </div>
-    <div style="flex:1;">
-      <div class="step-h" style="background:var(--org);">STEP 3<br>4月中旬〜</div>
-      <div class="step-b">Phase 0 開始<br>合同キックオフ</div>
+    <div class="st">
+      <p class="st-n">Step 03  /  4月中旬〜</p>
+      <p class="st-t">Phase 0 開始・合同キックオフ</p>
+      <p class="st-d">要件定義・設計フェーズを合同でスタート</p>
     </div>
   </div>
-  <img src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png"
-       style="position:absolute;bottom:28px;right:44px;height:34px;">
-  <div class="pg">10 / 10</div>
+  <img class="logo" src="https://raw.githubusercontent.com/tsugut0/mitsui-pitch/main/logo_black.png">
+  <div class="pn">10</div>
 </div>
 </section>
 
@@ -396,7 +550,7 @@
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
 <script>
 Reveal.initialize({hash:true,width:1280,height:720,margin:0,controls:true,
-  progress:true,slideNumber:false,transition:'slide',backgroundTransition:'fade'});
+  progress:false,slideNumber:false,transition:'fade',backgroundTransition:'none'});
 </script>
 </body>
 </html>
